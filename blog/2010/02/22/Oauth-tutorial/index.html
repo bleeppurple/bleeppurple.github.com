@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Bleep Purple SoundCloud Tutorials :: Know Your Enemy his name is Oauth</title>
+    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+    <link href="/atom.xml" rel="alternate" title="Bleep Purple SoundCloud Tutorials" type="application/atom+xml" />
+    <script type="text/javascript">
+      //<![CDATA[
+        var twitter_user = ""
+        var show_replies = false;
+        var tweet_count = 3;
+      //]]>
+    </script>
+    <script src="http://ajax.googleapis.com/ajax/libs/mootools/1.2.4/mootools-yui-compressed.js" type="text/javascript"></script>
+    <script src="/javascripts/mootools-1.2.4.2-more.js" type="text/javascript"></script>
+    <script src="/javascripts/octopress.js" type="text/javascript"></script>
+    <script src="/javascripts/twitter.js" type="text/javascript"></script>
+  </head>
+  <body id="">
+    <div id="header">
+      <div class="page_width">
+        <a class="title" href="/">Bleep Purple SoundCloud Tutorials</a>
+        <div id="search">
+          <form action="http://www.google.com/cse" id="cse-search-box">
+            <input name="cx" type="hidden" value="" />
+            <input name="ie" type="hidden" value="UTF-8" />
+            <input id="q" name="q" type="text" />
+          </form>
+        </div>
+      </div>
+    </div>
+    <div id="nav">
+      <div class="page_width">
+        <ul>
+          <li class="alpha">
+            <a href="/">Blog</a>
+          </li>
+          <li class="omega">
+            <a href="/about.html">About</a>
+          </li>
+          <li class="subscribe">
+            <a href="/atom.xml">Subscribe</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div id="page">
+      <div class="page_width">
+        <div id="main">
+          <div class="blog">
+            <div class="article">
+              <h2>Know Your Enemy his name is Oauth</h2>
+              <h5 id='this_is_a_ruby_tutorial'>This is a Ruby tutorial</h5>&#x000A;&#x000A;<p><strong>let me state for the record that i don&#8217;t like Oauth, my experience with it till last month was none. I have however been forced to use it and once i connected to my first webservice, i learned to live with it and now well we&#8217;ve become bitter-sweet friends</strong></p>&#x000A;&#x000A;<p>I encourage you to run this in the console and watch the printout on the screen</p>&#x000A;&#x000A;<p><strong>Potential Bugs</strong></p>&#x000A;&#x000A;<p>the &#8216;oauth&#8217; gem has a few potential bugs should you run into any errors include all these lines in your requires</p>&#x000A;<div class='highlight'><pre><span class='nb'>require</span> <span class='s1'>&#39;oauth&#39;</span>&#x000A;<span class='nb'>require</span> <span class='s1'>&#39;oauth/consumer&#39;</span>&#x000A;<span class='nb'>require</span> <span class='s1'>&#39;oauth/token&#39;</span> &#x000A;</pre>&#x000A;</div>&#x000A;<p>you can install the ruby gem by copying and pasting the code below</p>&#x000A;<div class='highlight'><pre> <span class='n'>gem</span> <span class='n'>install</span> <span class='n'>oauth</span>&#x000A;</pre>&#x000A;</div>&#x000A;<p>The aim of the tutorial is to simplify the OAuth process for the new user, get you on your feet and running!</p>&#x000A;&#x000A;<h3 id='agents_in_the_wires'>Agents in the wires</h3>&#x000A;&#x000A;<pre><code>For every token their is a secret</code></pre>&#x000A;&#x000A;<p>There is always an end goal with all security systems and Oauth is no different <em>The end goal with OAuth is to get an access token and secret</em> Once you have these stored you have the keys to the city!</p>&#x000A;&#x000A;<h3 id='cosumer_token'>Cosumer Token</h3>&#x000A;&#x000A;<pre><code>All good things come in threes</code></pre>&#x000A;&#x000A;<p>Oauth will require you to unlock 3 doors and along the way you will require three sets of token&#8217;s and secret&#8217;s</p>&#x000A;&#x000A;<blockquote>&#x000A;<p>These three sets are consumer, request and access</p>&#x000A;</blockquote>&#x000A;&#x000A;<p>The good news is the first part is already done for you, When you register as a sound cloud developer you get a consumer key and its partner the consumer secret</p>&#x000A;&#x000A;<p>This Consumer pairing basically tells Oauth that&#8217;s its your application &#8216;asking for access to the webservice&#8217;. You can create a new consumer like this:</p>&#x000A;<div class='highlight'><pre> <span class='n'>consumer</span> <span class='o'>=</span> <span class='no'>OAuth</span><span class='o'>::</span><span class='no'>Consumer</span><span class='o'>.</span><span class='n'>new</span><span class='p'>(</span><span class='no'>KEY</span><span class='p'>,</span> <span class='no'>SECRET</span><span class='p'>,</span> <span class='p'>{</span>&#x000A;        <span class='ss'>:site</span> <span class='o'>=&gt;</span> <span class='s2'>&quot;http://api.soundcloud.com, </span>&#x000A;<span class='s2'>        :request_token_path =&gt; &quot;</span><span class='o'>/</span><span class='n'>oauth</span><span class='o'>/</span><span class='n'>request_token</span><span class='s2'>&quot;,</span>&#x000A;<span class='s2'>        :access_token_path =&gt; &quot;</span><span class='o'>/</span><span class='n'>oauth</span><span class='o'>/</span><span class='n'>access_token</span><span class='s2'>&quot;,</span>&#x000A;<span class='s2'>        :authorize_path =&gt; &quot;</span><span class='o'>/</span><span class='n'>oauth</span><span class='o'>/</span><span class='n'>authorize</span><span class='s2'>&quot;,</span>&#x000A;<span class='s2'>        :scheme =&gt; :query_string</span>&#x000A;<span class='s2'>      })</span>&#x000A;</pre>&#x000A;</div>&#x000A;<p>To get you started, i have included key-values (:site, :scheme etc don&#8217;t worry about these to much for now)</p>&#x000A;&#x000A;<pre><code>REMEMBER THE GOAL: to get an access token and secret</code></pre>&#x000A;&#x000A;<h3 id='request_token'>Request Token</h3>&#x000A;&#x000A;<p>A request token is created from your consumer pair. You can create a new request token, using the consumer you just created:</p>&#x000A;<div class='highlight'><pre><span class='n'>request_token</span> <span class='o'>=</span> <span class='n'>consumer</span><span class='o'>.</span><span class='n'>get_request_token</span><span class='p'>(</span><span class='s2'>&quot;Your callback URL&quot;</span><span class='p'>)</span>&#x000A;<span class='nb'>puts</span> <span class='n'>request_token</span><span class='o'>.</span><span class='n'>token</span><span class='p'>,</span> <span class='n'>request_token</span><span class='o'>.</span><span class='n'>secret</span>&#x000A;</pre>&#x000A;</div>&#x000A;<p>stop! slowdown! where did all these new methods come from?</p>&#x000A;&#x000A;<p>Well they came from the Oauth gem you installed if you want to know how they work read the gems rDocs!!</p>&#x000A;&#x000A;<blockquote>&#x000A;<p>Breaking down the code</p>&#x000A;</blockquote>&#x000A;<div class='highlight'><pre><span class='n'>request_token</span> <span class='o'>=</span> <span class='n'>consumer</span><span class='o'>.</span><span class='n'>get_request_token</span><span class='p'>(</span><span class='s2'>&quot;Your callback URL&quot;</span><span class='p'>)</span>&#x000A;</pre>&#x000A;</div>&#x000A;<pre><code>we store a request token (which is generated from the consumer you just created)&#x000A;&quot;Your callback URL&quot; this is the URL which soundcloud will send your user back to (after the next stage)&#x000A;&#x000A;example:&#x000A;http://chipsandcheese.com/callback</code></pre>&#x000A;<div class='highlight'><pre><span class='nb'>puts</span> <span class='n'>request_token</span><span class='o'>.</span><span class='n'>token</span>&#x000A;</pre>&#x000A;</div>&#x000A;<pre><code>output&#39;s  generated request token to console by calling Oauth&#39;s token method on our stored request token</code></pre>&#x000A;<div class='highlight'><pre><span class='nb'>puts</span> <span class='n'>request_token</span><span class='o'>.</span><span class='n'>secret</span>&#x000A;</pre>&#x000A;</div>&#x000A;<pre><code>output&#39;s  generated request secret to console by calling Oauth&#39;s secret method on our stored request token</code></pre>&#x000A;&#x000A;<p>the Oauth gem also provides us with an authorization URL the authorization URL is where your application redirects to</p>&#x000A;&#x000A;<p>in SoundClouds case it is</p>&#x000A;&#x000A;<p><em>api.soundcloud.com/oauth/request_token</em></p>&#x000A;&#x000A;<p>and this is generated for you simpily by calling athorize_url on the request token you created</p>&#x000A;&#x000A;<p>like so:</p>&#x000A;<div class='highlight'><pre><span class='n'>request_token</span><span class='o'>.</span><span class='n'>authorize_url</span>&#x000A;</pre>&#x000A;</div>&#x000A;<p><strong>REMEMBER: you need a way to store this request pair (you can find out how to do this with sessions in a later tutorial)</strong></p>&#x000A;&#x000A;<h3 id='access_token'>Access Token</h3>&#x000A;&#x000A;<blockquote>&#x000A;<p>Breath the user has now gone <em>But he will return</em> to the Callback url you specifyed earlier and we will be ready oh yes we will!!</p>&#x000A;</blockquote>&#x000A;&#x000A;<p>Once the user is back at your app, you use the request token and secret to generate the access token. In the code below, you would use the request token and secret that you stored in the session before redirecting to the authorization URL.</p>&#x000A;<div class='highlight'><pre><span class='n'>request_token</span> <span class='o'>=</span> <span class='no'>OAuth</span><span class='o'>::</span><span class='no'>RequestToken</span><span class='o'>.</span><span class='n'>new</span><span class='p'>(</span><span class='n'>consumer</span><span class='p'>,</span> <span class='s1'>&#39;request token&#39;</span><span class='p'>,</span> <span class='s1'>&#39;request secret&#39;</span><span class='p'>)</span>&#x000A;<span class='n'>access_token</span> <span class='o'>=</span> <span class='n'>request_token</span><span class='o'>.</span><span class='n'>get_access_token</span>&#x000A;</pre>&#x000A;</div>&#x000A;<p>Sometimes an application will send an extra parameter in your callback, this is often a verification token, known as an <strong>oauth verifier</strong> This is used in Souncloud&#8217;s callback, luckly for us our oauth library takes care of this and we simpily have to ammend the line</p>&#x000A;<div class='highlight'><pre><span class='n'>access_token</span> <span class='o'>=</span> <span class='n'>request_token</span><span class='o'>.</span><span class='n'>get_access_token</span> <span class='ss'>:oauth_verifier</span> <span class='o'>=&gt;</span> <span class='n'>params</span><span class='o'>[</span><span class='ss'>:oauth_verifier</span><span class='o'>]</span>&#x000A;</pre>&#x000A;</div>&#x000A;<blockquote>&#x000A;<p>We have our Access token, store it and use it with all your calls like so&#8230;</p>&#x000A;</blockquote>&#x000A;&#x000A;<pre><code>puts access_token.get(&#39;SOUNDCLOUD API CALL&#39;) - i&#39;m not going to do all the documentation, read the soundcloud api for yourselves</code></pre>&#x000A;&#x000A;<p><strong>Well there you have it Oauth explained, hopefully you should now have some understanding of Oauth and how it works&#8230; &#8230;I recomend you try it now with the Soundcloud or twitter API</strong></p>&#x000A;&#x000A;<p>untill next time keep it mobile!! Bleep Purple</p>&#x000A;&#x000A;<p>ps.</p>&#x000A;&#x000A;<p>For all of those of you who are super keen jump ahead to the next Tut there is a ruby client for Soundcloud that&#8217;ll let you register your newly aquired access token and have fun with SC&#8217;s API&#8230;go ahead search github find the code below!!</p>&#x000A;&#x000A;<pre><code>@soundcloud = Soundcloud.register({:access_token =&gt; @access_token})&#x000A;@me = @soundcloud.User.find_me # finds the verified user in my case bleep purple&#x000A;&#x000A;# Views&#x000A;&#x000A;- @me.tracks.each do |track|&#x000A;  -@link = cycle(&quot;even&quot;,&quot;odd&quot;)&#x000A;    %div{:class=&gt;@link}&#x000A;      %a{:href=&gt; track.stream_url}   &#x000A;        %h4= track.title&#x000A;&#x000A;        = Hotness!!</code></pre>
+            </div>
+            <p class="pubdate">
+              Published:
+              22 Feb, 2010
+            </p>
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+              //<![CDATA[
+                var disqus_url = "/blog/2010/02/22/Oauth-tutorial";
+              //]]>
+            </script>
+            <noscript>
+              <a href="http://.disqus.com/?url=ref">View the discussion thread</a>
+            </noscript>
+            <script src="http://disqus.com/forums//embed.js" type="text/javascript"></script>
+          </div>
+        </div>
+        <div id="sidebar">
+          <h4>Twitter <a class="small" href="http://twitter.com/">@</a></h4>
+          <div id="twitter">
+            <ul id="twitter_status">
+              Status updating...
+            </ul>
+          </div>
+          <h4>My Delicious <a class="small" href="http://delicious.com/">more &rarr;</a></h4>
+          <div id="delicious">
+            <script src="http://feeds.delicious.com/v2/js/?title=&amp;count=3&amp;sort=date&amp;extended" type="text/javascript"></script>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="footer">
+      <div class="page_width">
+        Copyright &copy; 2010 - Bleep Purple SoundCloud Tutorials -
+        <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+      </div>
+    </div>
+    <!-- /Disqus Comments code -->
+    <script type="text/javascript">
+      //<![CDATA[
+        (function() {
+            var links = document.getElementsByTagName('a');
+            var query = '?';
+            for(var i = 0; i < links.length; i++) {
+              if(links[i].href.indexOf('#disqus_thread') >= 0) {
+                query += 'url' + i + '=' + encodeURIComponent(links[i].href) + '&';
+              }
+            }
+            document.write('<script charset="utf-8" type="text/javascript" src="http://disqus.com/forums//get_num_replies.js' + query + '"></' + 'script>');
+          })();
+      //]]>
+    </script>
+    <!-- /Google Analytics code -->
+    <script type="text/javascript">
+      //<![CDATA[
+        try {
+        var pageTracker = _gat._getTracker("");
+        pageTracker._trackPageview();
+        } catch(err) {}
+      //]]>
+    </script>
+  </body>
+</html>

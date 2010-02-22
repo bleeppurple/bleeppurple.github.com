@@ -1,0 +1,11 @@
+.even a { background-color: #B200D1; border: 1px solid #999999; color: #FFFFFF; display: block; font-size: 17px; font-weight: bold; margin-bottom: 10px; padding: 0px; text-decoration: none; }
+
+.odd a { background-color: #42004F; border: 1px solid #999999; color: #FFFFFF; display: block; font-size: 17px; font-weight: bold; margin-bottom: 10px; padding: 0px; text-decoration: none; }
+
+img { border: 0px; }
+
+html, body { height: 100%; margin: 0 0 1px 0; padding: 0; }
+
+body { color: #0d0d0d; font: 13px Arial, Helvetica, sans-serif; background: transparent url(/images/Bleep-Purple-background.jpg) repeat scroll left top; padding: 20px; padding-top: 50px; text-align: center; }
+
+h1 { font-size: 40px; font-weight: bold; border: 1px; }

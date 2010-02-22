@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>My Octopress Blog</title>
+  <link href="http://yoursite.com/atom.xml" rel="self" />
+  <link href="http://yoursite.com" />
+  <updated>2010-02-22T09:57:03+00:00</updated>
+  <id>http://yoursite.com</id>
+  <author>
+    <name>Your Name</name>
+    <email>author@domain.com</email>
+  </author>
+  <entry>
+    <title>Know Your Enemy his name is Oauth</title>
+    <link href="http://yoursite.com/blog/2010/02/22/Oauth-tutorial" />
+    <updated>2010-02-22T00:00:00+00:00</updated>
+    <id>http://yoursite.com/blog/2010/02/22/Oauth-tutorial</id>
+    <content type="html">
+      &lt;h5 id='this_is_a_ruby_tutorial'&gt;This is a Ruby tutorial&lt;/h5&gt;
+      
+      &lt;p&gt;&lt;strong&gt;let me state for the record that i don&#8217;t like Oauth, my experience with it till last month was none. I have however been forced to use it and once i connected to my first webservice, i learned to live with it and now well we&#8217;ve become bitter-sweet friends&lt;/strong&gt;&lt;/p&gt;
+      
+      &lt;p&gt;I encourage you to run this in the console and watch the printout on the screen&lt;/p&gt;
+      
+      &lt;p&gt;&lt;strong&gt;Potential Bugs&lt;/strong&gt;&lt;/p&gt;
+      
+      &lt;p&gt;the &#8216;oauth&#8217; gem has a few potential bugs should you run into any errors include all these lines in your requires&lt;/p&gt;
+      &lt;div class='highlight'&gt;&lt;pre&gt;&lt;span class='nb'&gt;require&lt;/span&gt; &lt;span class='s1'&gt;&#39;oauth&#39;&lt;/span&gt;
+      &lt;span class='nb'&gt;require&lt;/span&gt; &lt;span class='s1'&gt;&#39;oauth/consumer&#39;&lt;/span&gt;
+      &lt;span class='nb'&gt;require&lt;/span&gt; &lt;span class='s1'&gt;&#39;oauth/token&#39;&lt;/span&gt; 
+      &lt;/pre&gt;
+      &lt;/div&gt;
+      &lt;p&gt;you can install the ruby gem by copying and pasting the code below&lt;/p&gt;
+      &lt;div class='highlight'&gt;&lt;pre&gt; &lt;span class='n'&gt;gem&lt;/span&gt; &lt;span class='n'&gt;install&lt;/span&gt; &lt;span class='n'&gt;oauth&lt;/span&gt;
+      &lt;/pre&gt;
+      &lt;/div&gt;
+      &lt;p&gt;The aim of the tutorial is to simplify the OAuth process for the new user, get you on your feet and running!&lt;/p&gt;
+      
+      &lt;h3 id='agents_in_the_wires'&gt;Agents in the wires&lt;/h3&gt;
+      
+      &lt;pre&gt;&lt;code&gt;For every token their is a secret&lt;/code&gt;&lt;/pre&gt;
+      
+      &lt;p&gt;There is always an end goal with all security systems and Oauth is no different &lt;em&gt;The end goal with OAuth is to get an access token and secret&lt;/em&gt; Once you have these stored you have the keys to the city!&lt;/p&gt;
+      
+      &lt;h3 id='cosumer_token'&gt;Cosumer Token&lt;/h3&gt;
+      
+      &lt;pre&gt;&lt;code&gt;All good things come in threes&lt;/code&gt;&lt;/pre&gt;
+      
+      &lt;p&gt;Oauth will require you to unlock 3 doors and along the way you will require three sets of token&#8217;s and secret&#8217;s&lt;/p&gt;
+      
+      &lt;blockquote&gt;
+      &lt;p&gt;These three sets are consumer, request and access&lt;/p&gt;
+      &lt;/blockquote&gt;
+      
+      &lt;p&gt;The good news is the first part is already done for you, When you register as a sound cloud developer you get a consumer key and its partner the consumer secret&lt;/p&gt;
+      
+      &lt;p&gt;This Consumer pairing basically tells Oauth that&#8217;s its your application &#8216;asking for access to the webservice&#8217;. You can create a new consumer like this:&lt;/p&gt;
+      &lt;div class='highlight'&gt;&lt;pre&gt; &lt;span class='n'&gt;consumer&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='no'&gt;OAuth&lt;/span&gt;&lt;span class='o'&gt;::&lt;/span&gt;&lt;span class='no'&gt;Consumer&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;new&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='no'&gt;KEY&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='no'&gt;SECRET&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='p'&gt;{&lt;/span&gt;
+              &lt;span class='ss'&gt;:site&lt;/span&gt; &lt;span class='o'&gt;=&gt;&lt;/span&gt; &lt;span class='s2'&gt;&quot;http://api.soundcloud.com, &lt;/span&gt;
+      &lt;span class='s2'&gt;        :request_token_path =&gt; &quot;&lt;/span&gt;&lt;span class='o'&gt;/&lt;/span&gt;&lt;span class='n'&gt;oauth&lt;/span&gt;&lt;span class='o'&gt;/&lt;/span&gt;&lt;span class='n'&gt;request_token&lt;/span&gt;&lt;span class='s2'&gt;&quot;,&lt;/span&gt;
+      &lt;span class='s2'&gt;        :access_token_path =&gt; &quot;&lt;/span&gt;&lt;span class='o'&gt;/&lt;/span&gt;&lt;span class='n'&gt;oauth&lt;/span&gt;&lt;span class='o'&gt;/&lt;/span&gt;&lt;span class='n'&gt;access_token&lt;/span&gt;&lt;span class='s2'&gt;&quot;,&lt;/span&gt;
+      &lt;span class='s2'&gt;        :authorize_path =&gt; &quot;&lt;/span&gt;&lt;span class='o'&gt;/&lt;/span&gt;&lt;span class='n'&gt;oauth&lt;/span&gt;&lt;span class='o'&gt;/&lt;/span&gt;&lt;span class='n'&gt;authorize&lt;/span&gt;&lt;span class='s2'&gt;&quot;,&lt;/span&gt;
+      &lt;span class='s2'&gt;        :scheme =&gt; :query_string&lt;/span&gt;
+      &lt;span class='s2'&gt;      })&lt;/span&gt;
+      &lt;/pre&gt;
+      &lt;/div&gt;
+      &lt;p&gt;To get you started, i have included key-values (:site, :scheme etc don&#8217;t worry about these to much for now)&lt;/p&gt;
+      
+      &lt;pre&gt;&lt;code&gt;REMEMBER THE GOAL: to get an access token and secret&lt;/code&gt;&lt;/pre&gt;
+      
+      &lt;h3 id='request_token'&gt;Request Token&lt;/h3&gt;
+      
+      &lt;p&gt;A request token is created from your consumer pair. You can create a new request token, using the consumer you just created:&lt;/p&gt;
+      &lt;div class='highlight'&gt;&lt;pre&gt;&lt;span class='n'&gt;request_token&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='n'&gt;consumer&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;get_request_token&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='s2'&gt;&quot;Your callback URL&quot;&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt;
+      &lt;span class='nb'&gt;puts&lt;/span&gt; &lt;span class='n'&gt;request_token&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;token&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='n'&gt;request_token&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;secret&lt;/span&gt;
+      &lt;/pre&gt;
+      &lt;/div&gt;
+      &lt;p&gt;stop! slowdown! where did all these new methods come from?&lt;/p&gt;
+      
+      &lt;p&gt;Well they came from the Oauth gem you installed if you want to know how they work read the gems rDocs!!&lt;/p&gt;
+      
+      &lt;blockquote&gt;
+      &lt;p&gt;Breaking down the code&lt;/p&gt;
+      &lt;/blockquote&gt;
+      &lt;div class='highlight'&gt;&lt;pre&gt;&lt;span class='n'&gt;request_token&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='n'&gt;consumer&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;get_request_token&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='s2'&gt;&quot;Your callback URL&quot;&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt;
+      &lt;/pre&gt;
+      &lt;/div&gt;
+      &lt;pre&gt;&lt;code&gt;we store a request token (which is generated from the consumer you just created)
+      &quot;Your callback URL&quot; this is the URL which soundcloud will send your user back to (after the next stage)
+      
+      example:
+      http://chipsandcheese.com/callback&lt;/code&gt;&lt;/pre&gt;
+      &lt;div class='highlight'&gt;&lt;pre&gt;&lt;span class='nb'&gt;puts&lt;/span&gt; &lt;span class='n'&gt;request_token&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;token&lt;/span&gt;
+      &lt;/pre&gt;
+      &lt;/div&gt;
+      &lt;pre&gt;&lt;code&gt;output&#39;s  generated request token to console by calling Oauth&#39;s token method on our stored request token&lt;/code&gt;&lt;/pre&gt;
+      &lt;div class='highlight'&gt;&lt;pre&gt;&lt;span class='nb'&gt;puts&lt;/span&gt; &lt;span class='n'&gt;request_token&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;secret&lt;/span&gt;
+      &lt;/pre&gt;
+      &lt;/div&gt;
+      &lt;pre&gt;&lt;code&gt;output&#39;s  generated request secret to console by calling Oauth&#39;s secret method on our stored request token&lt;/code&gt;&lt;/pre&gt;
+      
+      &lt;p&gt;the Oauth gem also provides us with an authorization URL the authorization URL is where your application redirects to&lt;/p&gt;
+      
+      &lt;p&gt;in SoundClouds case it is&lt;/p&gt;
+      
+      &lt;p&gt;&lt;em&gt;api.soundcloud.com/oauth/request_token&lt;/em&gt;&lt;/p&gt;
+      
+      &lt;p&gt;and this is generated for you simpily by calling athorize_url on the request token you created&lt;/p&gt;
+      
+      &lt;p&gt;like so:&lt;/p&gt;
+      &lt;div class='highlight'&gt;&lt;pre&gt;&lt;span class='n'&gt;request_token&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;authorize_url&lt;/span&gt;
+      &lt;/pre&gt;
+      &lt;/div&gt;
+      &lt;p&gt;&lt;strong&gt;REMEMBER: you need a way to store this request pair (you can find out how to do this with sessions in a later tutorial)&lt;/strong&gt;&lt;/p&gt;
+      
+      &lt;h3 id='access_token'&gt;Access Token&lt;/h3&gt;
+      
+      &lt;blockquote&gt;
+      &lt;p&gt;Breath the user has now gone &lt;em&gt;But he will return&lt;/em&gt; to the Callback url you specifyed earlier and we will be ready oh yes we will!!&lt;/p&gt;
+      &lt;/blockquote&gt;
+      
+      &lt;p&gt;Once the user is back at your app, you use the request token and secret to generate the access token. In the code below, you would use the request token and secret that you stored in the session before redirecting to the authorization URL.&lt;/p&gt;
+      &lt;div class='highlight'&gt;&lt;pre&gt;&lt;span class='n'&gt;request_token&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='no'&gt;OAuth&lt;/span&gt;&lt;span class='o'&gt;::&lt;/span&gt;&lt;span class='no'&gt;RequestToken&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;new&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;consumer&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='s1'&gt;&#39;request token&#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='s1'&gt;&#39;request secret&#39;&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt;
+      &lt;span class='n'&gt;access_token&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='n'&gt;request_token&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;get_access_token&lt;/span&gt;
+      &lt;/pre&gt;
+      &lt;/div&gt;
+      &lt;p&gt;Sometimes an application will send an extra parameter in your callback, this is often a verification token, known as an &lt;strong&gt;oauth verifier&lt;/strong&gt; This is used in Souncloud&#8217;s callback, luckly for us our oauth library takes care of this and we simpily have to ammend the line&lt;/p&gt;
+      &lt;div class='highlight'&gt;&lt;pre&gt;&lt;span class='n'&gt;access_token&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='n'&gt;request_token&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;get_access_token&lt;/span&gt; &lt;span class='ss'&gt;:oauth_verifier&lt;/span&gt; &lt;span class='o'&gt;=&gt;&lt;/span&gt; &lt;span class='n'&gt;params&lt;/span&gt;&lt;span class='o'&gt;[&lt;/span&gt;&lt;span class='ss'&gt;:oauth_verifier&lt;/span&gt;&lt;span class='o'&gt;]&lt;/span&gt;
+      &lt;/pre&gt;
+      &lt;/div&gt;
+      &lt;blockquote&gt;
+      &lt;p&gt;We have our Access token, store it and use it with all your calls like so&#8230;&lt;/p&gt;
+      &lt;/blockquote&gt;
+      
+      &lt;pre&gt;&lt;code&gt;puts access_token.get(&#39;SOUNDCLOUD API CALL&#39;) - i&#39;m not going to do all the documentation, read the soundcloud api for yourselves&lt;/code&gt;&lt;/pre&gt;
+      
+      &lt;p&gt;&lt;strong&gt;Well there you have it Oauth explained, hopefully you should now have some understanding of Oauth and how it works&#8230; &#8230;I recomend you try it now with the Soundcloud or twitter API&lt;/strong&gt;&lt;/p&gt;
+      
+      &lt;p&gt;untill next time keep it mobile!! Bleep Purple&lt;/p&gt;
+      
+      &lt;p&gt;ps.&lt;/p&gt;
+      
+      &lt;p&gt;For all of those of you who are super keen jump ahead to the next Tut there is a ruby client for Soundcloud that&#8217;ll let you register your newly aquired access token and have fun with SC&#8217;s API&#8230;go ahead search github find the code below!!&lt;/p&gt;
+      
+      &lt;pre&gt;&lt;code&gt;@soundcloud = Soundcloud.register({:access_token =&gt; @access_token})
+      @me = @soundcloud.User.find_me # finds the verified user in my case bleep purple
+      
+      # Views
+      
+      - @me.tracks.each do |track|
+        -@link = cycle(&quot;even&quot;,&quot;odd&quot;)
+          %div{:class=&gt;@link}
+            %a{:href=&gt; track.stream_url}   
+              %h4= track.title
+      
+              = Hotness!!&lt;/code&gt;&lt;/pre&gt;
+    </content>
+  </entry>
+</feed>
